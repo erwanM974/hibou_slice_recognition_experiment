@@ -28,11 +28,27 @@ This experiment constitutes a small-scale experimental validation of such an alg
 
 ## Principle of the experiment
 
+For every interaction *i* a set of interactions *I*, 
+we generate a number of accepted multi-traces 
+using the semantics exploration feature of HIBOU and a trace generation logger.
 
+Those sets of multi-traces *T(i)* are defined up to a certain architecture of the system specified by interaction *i*.
+This architecture corresponds to defining which sub-systems are co-localized i.e. share a common clock.
 
-## Input data
+For every such multi-trace, we then generate a number of slices by removing events at the beginning and/or the end of its local trace components.
 
+Finally, we analyze every such slice against the original model to ensure that the algorithm indeed recognize them as slices of accepted multi-traces.
 
 ## Results
 
-
+|                     |                                                         |                                                         |                                                         |
+|---------------------|---------------------------------------------------------|---------------------------------------------------------|---------------------------------------------------------|
+| interaction         | <img src="./README_images/i1.png" alt="i1" width="200"> | <img src="./README_images/i2.png" alt="i2" width="300"> | <img src="./README_images/i3.png" alt="i3" width="300"> |
+| architecture        | { {l1} , {l2} }  | { {l1} , {l2,l3} }  | { {l1} , {l2}, {l3} }      |
+| generation limit    | loop <= 4        | loop <= 3           | loop <= 30                 |
+| generation kind     | exhaustive       | exhaustive          | partial random             |
+| generation filter   | none             | none                | nodes <= 10 000            |
+| number of traces    | 1249             | 64                  | 231                        |
+| slicing             | exhaustive       | exhaustive          | 30 random slices per trace |
+| number of slices    | 115 929          | 80 488              | 7161                       |
+| size of slices      | 0-8              | 0-22                | 24-123                     |
